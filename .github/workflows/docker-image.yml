@@ -15,7 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: docker build . --target --file Dockerfile --tag leakingmemory/alpine-casablanca:build
+      run: docker build . --file Dockerfile --tag leakingmemory/alpine-casablanca:build
     - name: Build the runtime Docker image
       run: docker build . --target casablanca-runtime --file Dockerfile --tag leakingmemory/alpine-casablanca:runtime
     - name: Login to DockerHub
