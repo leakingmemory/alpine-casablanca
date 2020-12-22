@@ -1,0 +1,28 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build the Docker image
+      run: docker build . --target --file Dockerfile --tag leakingmemory/alpine-casablanca:build
+    - name: Build the runtime Docker image
+      run: docker build . --target casablanca-runtime --file Dockerfile --tag leakingmemory/alpine-casablanca:runtime
+    - name: Login to DockerHub
+      uses: docker/login-action@v1 
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_PASSWORD }}
+    - name: Push to Docker Hub
+      run: docker push leakingmemory/alpine-casablanca:build
+      run: docker push leakingmemory/alpine-casablanca:runtime
