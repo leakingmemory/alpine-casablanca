@@ -13,20 +13,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Login to GitHub Docker Registry
-    - uses: actions/docker/login@master
-      with: # Set the secret as an input
-        DOCKER_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-        DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
-      env: # Set the secret in the env
-        DOCKER_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-        DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag leakingmemory/alpine-casablanca:build
-    - name: Build the runtime Docker image
-      run: docker build . --target casablanca-runtime --file Dockerfile --tag leakingmemory/alpine-casablanca:runtime
-    - name: Push to Docker Hub build image
-      run: docker push leakingmemory/alpine-casablanca:build
-    - name: Push to Docker Hub runtime image
-      run: docker push leakingmemory/alpine-casablanca:runtime
+      - uses: actions/checkout@v2
+      - name: Login to GitHub Docker Registry
+      - uses: actions/docker/login@master
+        with: # Set the secret as an input
+          DOCKER_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
+        env: # Set the secret in the env
+          DOCKER_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
+      - name: Build the Docker image
+        run: docker build . --file Dockerfile --tag leakingmemory/alpine-casablanca:build
+      - name: Build the runtime Docker image
+        run: docker build . --target casablanca-runtime --file Dockerfile --tag leakingmemory/alpine-casablanca:runtime
+      - name: Push to Docker Hub build image
+        run: docker push leakingmemory/alpine-casablanca:build
+      - name: Push to Docker Hub runtime image
+        run: docker push leakingmemory/alpine-casablanca:runtime
