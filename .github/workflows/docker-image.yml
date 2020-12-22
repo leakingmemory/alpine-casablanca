@@ -15,8 +15,11 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Login to GitHub Docker Registry
-      run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-      env:
+    - uses: actions/docker/login@master
+      with: # Set the secret as an input
+        DOCKER_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
+      env: # Set the secret in the env
         DOCKER_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
         DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
     - name: Build the Docker image
