@@ -14,8 +14,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Login to GitHub Docker Registry
-      - uses: actions/docker/login@master
+      - name: Login to Docker
+        uses: actions/docker/login@master
         with: # Set the secret as an input
           DOCKER_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
