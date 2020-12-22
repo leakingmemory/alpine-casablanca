@@ -1,6 +1,11 @@
+Docker image setup for building and running with cppresdk
+ - obviously based on or including several other projects - make sure your
+   usage is compatible with licensing terms of these including,
+   but not limited to Alpine Linux, Cpprestsdk, Openssl, zlib,
+   Libstdc++, Boost
 MIT License
 
-Copyright (c) 2020 leakingmemory
+Copyright (c) 2020 Jan-Espen Oversand
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
