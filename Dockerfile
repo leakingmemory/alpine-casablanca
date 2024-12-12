@@ -9,14 +9,15 @@ ENV CASABLANCA_VERSION=2.10.19
 RUN wget "https://github.com/microsoft/cpprestsdk/archive/v${CASABLANCA_VERSION}.tar.gz"
 RUN tar xzvf v${CASABLANCA_VERSION}.tar.gz
 ADD cpprestsdk-2.10.19-warnings.patch /cpprestsdk-2.10.19-warnings.patch
+ADD cpprestsdk-2.10.19-disabl-int-tests.patch /cpprestsdk-2.10.19-disabl-int-tests.patch
 WORKDIR /cpprestsdk-${CASABLANCA_VERSION}
 RUN patch -p1 < /cpprestsdk-2.10.19-warnings.patch
+RUN patch -p1 < /cpprestsdk-2.10.19-disabl-int-tests.patch
 RUN mkdir build.release
 WORKDIR /cpprestsdk-${CASABLANCA_VERSION}/build.release
 RUN cmake -G Ninja .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_LIBDIR=/usr/local/lib
 RUN ninja
 WORKDIR /cpprestsdk-${CASABLANCA_VERSION}/build.release/Release/Binaries
-RUN rm -f libwebsocketsclient_test.so
 RUN ./test_runner *_test.so
 WORKDIR /cpprestsdk-${CASABLANCA_VERSION}/build.release
 RUN ninja install
