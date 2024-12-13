@@ -23,6 +23,7 @@ WORKDIR /cpprestsdk-${CASABLANCA_VERSION}/build.release
 RUN ninja install
 
 FROM rundeps AS casablanca-runtime
+RUN apk add boost
 COPY --from=cpprestsdk-build /usr/local/lib/libcpprest*.so* /usr/local/lib/
 
 FROM casablanca-runtime AS casablanca-dev
